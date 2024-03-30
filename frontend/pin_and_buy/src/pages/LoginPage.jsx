@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [key, setKey] = useState('login');
 
   return (
-    <div className='div'>
+    <div className='div home-page'>
       <Card className='card-p'>
         <Card.Body>
           <Tabs
