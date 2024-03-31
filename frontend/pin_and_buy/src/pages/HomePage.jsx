@@ -6,8 +6,7 @@ import {
     FavoriteProductsSection,
     LocationHoursSection,
   } from "./Sections";
- import './sections.css';
-
+import "../styles/sections.css";
  
 const HomePage = () => {
 
