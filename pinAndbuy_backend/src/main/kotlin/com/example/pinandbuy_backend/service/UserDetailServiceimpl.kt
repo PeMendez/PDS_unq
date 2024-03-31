@@ -22,7 +22,6 @@ class UserDetailServiceimpl : UserDetailsService{
             throw UsernameNotFoundException("El usuario no existe")
         }
         var authorities: Set<GrantedAuthority> = userdetails.profile.map { SimpleGrantedAuthority("ROLE_${it.name}") }.toSet()
-        println("sarasa")
         return User(userdetails.username, userdetails.password, true, true, true, true, authorities)
     }
 }

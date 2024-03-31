@@ -1,6 +1,7 @@
 package com.example.pinandbuy_backend.security
 
 import com.example.pinandbuy_backend.security.filters.JwtAuthenticationFilter
+import com.example.pinandbuy_backend.security.filters.JwtAuthorizationFilter
 import com.example.pinandbuy_backend.security.jwt.JwtUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
@@ -29,24 +31,23 @@ class SecurityConfig {
     @Autowired
     lateinit var jwtUtils: JwtUtils
 
+    @Autowired
+    lateinit var jwtAuthorizationFilter: JwtAuthorizationFilter
+
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity, authenticationManager: AuthenticationManager): SecurityFilterChain{
 
         var jwtAuthenticationFilter: JwtAuthenticationFilter = JwtAuthenticationFilter(jwtUtils)
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager)
         jwtAuthenticationFilter.setFilterProcessesUrl("/login")
-        return httpSecurity.let{
-            it.csrf { it.disable() }
-            it.authorizeHttpRequests {
-                it.requestMatchers("/register").permitAll()
-                it.anyRequest().authenticated()
-            }
-            it.sessionManagement {
-                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            }
-            it.addFilter(jwtAuthenticationFilter)
-            it.build()
-        }
+        return httpSecurity
+            .csrf { it.disable() }
+            .authorizeHttpRequests {  it.requestMatchers("/register").permitAll() }
+            .authorizeHttpRequests { it.anyRequest().authenticated() }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .addFilter(jwtAuthenticationFilter)
+            .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter :: class.java)
+            .build()
     }
 
     @Bean
@@ -61,4 +62,6 @@ class SecurityConfig {
     fun  passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
+
+
 }

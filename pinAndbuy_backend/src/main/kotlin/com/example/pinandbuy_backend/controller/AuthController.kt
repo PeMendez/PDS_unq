@@ -4,6 +4,7 @@ import com.example.pinandbuy_backend.DTO.Mapper
 import com.example.pinandbuy_backend.DTO.RegisterDTO
 import com.example.pinandbuy_backend.model.UserEntity
 import com.example.pinandbuy_backend.repository.UserRepository
+import com.example.pinandbuy_backend.security.jwt.JwtUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.GetMapping
@@ -21,6 +22,9 @@ class AuthController {
     @Autowired
     lateinit var mapper: Mapper
 
+    @Autowired
+    lateinit var jwtUtils: JwtUtils
+
     @GetMapping("/test")
     fun test():String{
         return "success"
@@ -30,8 +34,9 @@ class AuthController {
     fun register(@Valid @RequestBody userDTO: RegisterDTO): String{
         try {
             var user = mapper.fromRegisterDTOtoUser(userDTO)
+            var token = jwtUtils.generateAccessToken(user.username)
             userDao.save(user)
-            return "success"
+            return token
         } catch (e: Exception){ return "fail"}
 
     }
