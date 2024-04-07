@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 import NotFoundPage from "./NotFoundPage";
+import Profile from "./pages/profile";
 
 const App = () => {
 
@@ -12,6 +13,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<PublicRoute > <HomePage /> </PublicRoute>}/>
       <Route path="/login" element={<PublicRoute > <LoginPage /> </PublicRoute>}/>
+      <Route path="/profile" element={<PrivateRoute > <Profile /> </PrivateRoute>}/>
       <Route path="*" element={<NotFoundPage />} />
   </Routes>
   );

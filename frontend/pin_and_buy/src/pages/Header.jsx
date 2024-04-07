@@ -9,7 +9,7 @@ const Header = () => {
     
     function handleIconClick() {
         if (isAuth){
-            navigate("/");
+            navigate("/profile");
         }else{          
             navigate("/login");
         }

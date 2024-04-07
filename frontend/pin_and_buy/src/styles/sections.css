@@ -80,9 +80,9 @@ nav ul.navigation-menu {
     display: flex;
     flex-direction: row;
     flex: 1;
-    justify-content: center;
     position: relative;
     top: 0;
+    justify-content: space-evenly;
 }
 
 nav .navigation-menu a {
@@ -850,7 +850,6 @@ footer ul li {
     }
 }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     :root {
         --pg-margin: 80px;

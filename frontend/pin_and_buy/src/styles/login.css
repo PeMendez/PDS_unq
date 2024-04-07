@@ -7,6 +7,7 @@
   position: relative;
   animation: cambiar 10s ease-in-out infinite;
   --brand-01: #fff;
+  flex-direction: column-reverse;
 }
 
 @keyframes cambiar{

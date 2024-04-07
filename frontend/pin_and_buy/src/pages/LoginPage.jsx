@@ -4,7 +4,10 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 import '../styles/login.css';
-import { register } from "../services/authQueries";
+import { register, login } from "../services/authQueries";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [key, setKey] = useState('login');
@@ -12,17 +15,42 @@ const LoginPage = () => {
     username: "",
     password: "",
   });
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showModalLogin, setShowModalLogin] = useState(false);
+  
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
-      const response = await register(formData); 
-      console.log("Registro exitoso:", response);
-      
+      await register(formData); 
+      setFormData({
+        username: '',
+        password: ''
+      });
+      setShowSuccessMessage(true);
+      setShowModal(true);
+      setKey('login')
     } catch (error) {
       console.error("Error durante el registro:", error);
-      
+      setShowSuccessMessage(false);
+      setShowModal(true);      
+    }
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      await login(formData); 
+      setFormData({
+        username: '',
+        password: ''
+      });
+
+      navigate("/")
+    } catch (error) {
+      setShowModalLogin(true);
     }
   };
 
@@ -34,9 +62,39 @@ const LoginPage = () => {
     }));
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setShowModal(false);
+  };
+
 
   return (
     <div className='div home-page'>
+      <div class="modal-dialog modal-sm">
+        <Snackbar open={showModal} autoHideDuration={6000} onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        key={'top center'}>
+          <Alert onClose={handleClose} severity={showSuccessMessage ? 'success' : 'error'} variant="filled">
+          {showSuccessMessage ? 
+          <>
+          User created successfully!<br />
+          Please login.
+          </>
+          : '¡Username already exists, please try again!'}
+          </Alert>
+        </Snackbar>
+      </div>
+      <div class="modal-dialog modal-sm">
+        <Snackbar open={showModalLogin} autoHideDuration={6000} onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        key={'top center'}>
+          <Alert onClose={handleClose} severity='error' variant="filled">
+            Error while logging in, please verify your data
+          </Alert>
+        </Snackbar>
+      </div>
       <Card className='card-p'>
         <Card.Body>
           <Tabs
@@ -54,7 +112,8 @@ const LoginPage = () => {
                     name="username" 
                     className="form-control"
                     required
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    value={formData.username} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password:</label>
@@ -64,9 +123,10 @@ const LoginPage = () => {
                   name="password"
                   className="form-control" 
                   onChange={handleChange}
+                  value={formData.password}
                   required />
                 </div>
-                <Button type="submit" variant="outline-dark">Login</Button>
+                <Button type="submit" variant="outline-dark" onClick={handleLogin}>Login</Button>
               </form>
             </Tab>
             <Tab eventKey="Create Account" title="Sign up">
@@ -82,6 +142,7 @@ const LoginPage = () => {
                   required 
                   name="username" 
                   onChange={handleChange}
+                  value={formData.username}
                   />
                 </div>
                 {/*<div className="form-group">
@@ -91,7 +152,7 @@ const LoginPage = () => {
                 <div className="form-group">
                   <label htmlFor="password">Password:</label>
                   <input type="password" id="passwordR" className="form-control" required name="password" 
-                  onChange={handleChange}/>
+                  onChange={handleChange} value={formData.password}/>
                 </div>
                 <div className="form-group">
                 <Button type="submit" variant="outline-dark" onClick={handleSubmit}>Submit</Button>

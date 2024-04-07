@@ -7,8 +7,6 @@ const auth = axios.create({
   export const register = async (payload) => {
     try {
       let { username, password} = payload;
-      console.log("llegué")
-   console.log(payload)
       const response = await auth.post("register", {
         username: username,
         password: password
@@ -21,13 +19,30 @@ const auth = axios.create({
     }
   }
   
+  export const login = async (payload) => {
+    try {
+      let { username, password} = payload;
+      const response = await auth.post("login", {
+        username: username,
+        password: password
+      });
+
+      localStorage.setItem("token");
+      localStorage.setItem("user");
+
+      return response;
+    } catch (error) {
+      console.log(error);
+      console.log(error.message || "Ocurrió un error durante el logueo de usuario.");
+    }
+  }
+
   export const logout = async () => {
     try {
       const response = await auth.post("logout");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
   
-      console.log("logout", response);
       return response;
     } catch (error) {
       console.log(error);
