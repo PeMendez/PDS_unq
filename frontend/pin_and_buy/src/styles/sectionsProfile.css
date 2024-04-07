@@ -1,0 +1,111 @@
+section.profile {
+    /*    width: 100%;*/
+    height: auto;
+    background: var(--brand-02);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    grid-gap: 48px;
+    display: inline-flex;
+
+}
+
+.btn-rounded {
+    border-radius: 3rem;
+}
+
+section.profile h1 {
+    font-size: var(--hero-text);
+    font-weight: 600;
+    line-height: 1.2;
+    width: 40%;
+
+    color: var(--text-01);
+}
+
+section:not(.profile) {
+    padding: calc(var(--pg-margin)/2) var(--pg-margin);
+}
+
+section h2 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--text-01);
+    margin-bottom: 32px;
+    /*    padding-bottom: 24px;*/
+}
+
+section,
+footer {
+    position: relative;
+    width: 100%;
+    padding: 0 var(--pg-margin);
+}
+
+@media only screen and (min-width: 1200px) {
+    :root {
+        --pg-margin: 48px;
+    }
+
+    section.profile h1 {
+        --hero-text: 48px;
+    }
+
+    section.profile {
+        aspect-ratio: 2/1;
+
+    }
+    .btn-group {
+        flex-direction: row;
+    }
+
+    footer {
+
+
+        flex-direction: row;
+        text-align: left;
+
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    :root {
+        --pg-margin: 16px;
+    }
+
+    section.profile {
+        aspect-ratio: 1/1;
+        padding-top: 64px;
+
+    }
+
+    section.profile h1 {
+        --hero-text: 40px;
+        width: 80%;
+    }
+
+    section.profile {
+        background-size: 85%;
+        background-position: 360% 60%;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    :root {
+        --pg-margin: 80px;
+    }
+
+    section.profile h1 {
+        --hero-text: 56px;
+    }
+
+    section.profile {
+        aspect-ratio: 3/1;
+        background-size: 30%;
+        background-position: 90% 60%;
+    }
+}
