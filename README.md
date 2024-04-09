@@ -1,7 +1,7 @@
 # PDS_unq
 
-##Tecnologias
-###Frontend:
+## Tecnologias
+### Frontend:
 * Javascript 
 * React 18.2.0 
 * NodeJs 18.16.0
@@ -10,7 +10,7 @@
 * React Router 6.22.3
 * Npm 8.3.0
   
-###Backend:
+### Backend:
 * Kotlin jvm 1.9.23
 * Java version 17
 * Spring 3.2.4
