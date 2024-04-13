@@ -115,7 +115,7 @@ const FavoriteProductsSection = () => {
         <div className="no-favorites">
           <p>You haven't added any favorite products yet.</p>
           <Link to="/products">
-            <Button variant="outline-dark">Explore Products</Button>
+            <Button variant="outline-dark" className='btn-rounded'>Explore Products</Button>
           </Link>
         </div>
       )}

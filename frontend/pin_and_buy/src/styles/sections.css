@@ -921,3 +921,6 @@ footer ul li {
     justify-content: space-between;
 }
 
+.btn-rounded {
+    border-radius: 3rem !important;
+}

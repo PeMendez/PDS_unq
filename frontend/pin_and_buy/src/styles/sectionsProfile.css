@@ -109,3 +109,24 @@ footer {
         background-position: 90% 60%;
     }
 }
+
+section.my-buys{
+    height: auto;
+    background: var(--brand-02);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 48px;
+    display: inline-flex;
+}
+
+
+.a-buys {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; 
+    color: inherit;
+}

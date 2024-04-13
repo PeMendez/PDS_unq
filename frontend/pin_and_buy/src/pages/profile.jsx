@@ -1,13 +1,31 @@
-import React from 'react';
+import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 import '../styles/sections.css';
-import { MyProfile } from './SectionsProfile';
+import { MyProfile, MyFavs, MyBuys } from './SectionsProfile';
 
 
 const Profile  = () => {
+
+  const [activeComponent, setActiveComponent] = useState('profile');
+
+  const changeComponent = (component) => {
+    setActiveComponent(component);
+  };
+
+  const renderActiveComponent = () => {
+    switch (activeComponent) {
+      case 'favs':
+        return <MyFavs />;
+      case 'buys':
+        return <MyBuys />;
+      case 'profile':
+      default:
+        return <MyProfile />;
+    }
+  };
 
     return (   
       <div> 
@@ -20,18 +38,18 @@ const Profile  = () => {
             </div>
             <ul className="navigation-menu">
               <li>
-                <a href="#">My Profile</a>
+                <a href="#" onClick={() => changeComponent('profile')}>My Profile</a>
               </li>
               <li>
-                <a href="#">Favs</a>
+                <a href="#" onClick={() => changeComponent('favs')}>Favs</a>
               </li>
               <li>
-                <a href="#">Buys</a>
+                <a href="#" onClick={() => changeComponent('buys')}>Buys</a>
               </li>
             </ul>
             </nav>
       </header>
-      <MyProfile/>
+      {renderActiveComponent()}
       </div>
     );
   };
