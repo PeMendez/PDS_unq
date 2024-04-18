@@ -39,10 +39,10 @@ class SecurityConfig {
 
         var jwtAuthenticationFilter: JwtAuthenticationFilter = JwtAuthenticationFilter(jwtUtils)
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager)
-        jwtAuthenticationFilter.setFilterProcessesUrl("/login")
+        //jwtAuthenticationFilter.setFilterProcessesUrl("/login")
         return httpSecurity
             .csrf { it.disable() }
-            .authorizeHttpRequests {  it.requestMatchers("/register").permitAll() }
+            .authorizeHttpRequests {  it.requestMatchers("/register", "/login").permitAll() }
             .authorizeHttpRequests { it.anyRequest().authenticated() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .addFilter(jwtAuthenticationFilter)

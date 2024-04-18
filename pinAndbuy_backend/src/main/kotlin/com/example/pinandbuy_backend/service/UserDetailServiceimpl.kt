@@ -24,4 +24,5 @@ class UserDetailServiceimpl : UserDetailsService{
         var authorities: Set<GrantedAuthority> = userdetails.profile.map { SimpleGrantedAuthority("ROLE_${it.name}") }.toSet()
         return User(userdetails.username, userdetails.password, true, true, true, true, authorities)
     }
+
 }
