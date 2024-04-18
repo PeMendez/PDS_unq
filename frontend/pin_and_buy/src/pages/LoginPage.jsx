@@ -145,10 +145,10 @@ const LoginPage = () => {
                   value={formData.username}
                   />
                 </div>
-                {/*<div className="form-group">
+                <div className="form-group">
                   <label htmlFor="email">Email:</label>
                   <input type="text" id="email" className="form-control" required />
-                </div>*/}
+                </div>
                 <div className="form-group">
                   <label htmlFor="password">Password:</label>
                   <input type="password" id="passwordR" className="form-control" required name="password" 
